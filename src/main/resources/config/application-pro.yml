@@ -1,0 +1,22 @@
+#多环境配置-pro(生产)
+
+logging:
+  level:
+    root: error
+    com.lyng.study: info
+  file: logs/online.log
+
+server:
+  port: 8080
+
+#SpringDataJpa 配置(生产)
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://www.xxx.com/book?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update

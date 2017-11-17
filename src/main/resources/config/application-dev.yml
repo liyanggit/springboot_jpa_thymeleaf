@@ -1,0 +1,24 @@
+#多环境配置-dev(开发)
+
+logging:
+  level:
+    root: info
+    com.lyng.study: debug
+  file: logs/my.log
+
+server:
+  port: 8081
+
+#SpringDataJpa 配置(开发)
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/book?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+

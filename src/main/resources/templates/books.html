@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>书单列表</title>
+
+    <!-- Bootstrap -->
+    <!-- thymeleaf加载模板的时候不会识别../,所以需要引入thymeleaf的特定样式
+         @{/} 其中/代表static -->
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+    <div class="container" style="max-width: 700px">
+        <h2 class="page-header">书单列表</h2>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>描述</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 迭代 th:each
+                    其中book代表句柄
+                    iterStat代表索引项
+                        count:计数(从1开始)
+                        index:索引(从0开始)
+                        size:大小
+                        even:偶数(返回boolean)
+                        odd:奇数(返回boolean)
+                        first:第一条(返回boolean)
+                        last:最后一条(返回boolean) -->
+                <tr th:each="book,iterStat:${bookList}" th:class="${iterStat.even}? 'bg-success'">
+                    <th th:text="${iterStat.count}">#</th>
+                    <!-- 点击书名查看详情页 url
+                        两种方式-->
+                    <!--<th th:text="${book.name}">书名</th>-->
+                    <!--<th><a href="#" th:text="${book.name}" th:href="@{/web/books/{id}(id=${book.id})}">书名</a></th>-->
+                    <th><a href="#" th:text="${book.name}" th:href="@{'/web/books/'+${book.id}}">书名</a></th>
+                    <th th:text="${book.author}">作者</th>
+                    <th th:text="${book.description}">描述</th>
+                    <th th:switch="${book.status}">
+                        <span th:case="0">未读</span>
+                        <span th:case="1">在读</span>
+                        <span th:case="2">已读</span>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

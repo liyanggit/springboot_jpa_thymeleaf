@@ -1,0 +1,24 @@
+#yml是格式化的属性文件
+#默认加载config包下以application开头的文件
+#属性和值之间要有空格隔开
+
+
+server:
+  #port: 8081
+  context-path: /api
+
+#自定义属性
+book:
+  id: ${random.long}
+  name: 理想丰满
+  author: 冯仑
+  status: 1
+  description: ${book.name},这本书不错
+
+#多环境配置,开启xxx(application-xxx)环境
+spring:
+  profiles:
+    active: dev
+  #配置thymeleaf-3
+  thymeleaf:
+    mode: HTML
