@@ -1,2 +1,9 @@
 # springboot_jpa_thymeleaf
 SpringBoot+SpirngDataJPA+Thymeleaf
+
+基于SpringBoot框架搭建的微站应用
+MVC框架用SpringMVC
+ORM框架用Spring Data Jpa
+耦合层框架用SpringBoot
+前台展示框架用Boostrap3
+模板框架用Thymeleaf
