@@ -144,6 +144,20 @@ public class WebController {
         return "book";
     }
 
+    @GetMapping("/books/{id}/delete")
+    public String removeBook(@PathVariable("id") long bid, RedirectAttributes attributes) {
+        //return bid+"book detail";
+        bookService.removeBook(bid);
+        /**
+         * post--->>>redirec--->>>get
+         * 如果采用model.addAttribute的方式传参
+         * 会发生参数带丢
+         * 建议用addFlashAttribute的方式传参
+         */
+        attributes.addFlashAttribute("message", "删除成功");
+        return "redirect:/web/books";
+    }
+
     /**
      * 获取全部书单
      *
