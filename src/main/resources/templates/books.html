@@ -15,6 +15,13 @@
 <body>
     <div class="container" style="max-width: 700px">
         <h2 class="page-header">书单列表</h2>
+        <!-- thymeleaf判断参数是否为空${#strings.isEmpty()};引入strings类,调用其中的方法isEmpty() -->
+        <div class="alert alert-success alert-dismissable fade in" th:unless="${#strings.isEmpty(message)}">
+            <!-- data-dismiss="alert" 会关闭弹出框 -->
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <span th:text="${message}">成功</span>
+        </div>
+        <p class="text-right"><a href="add.html" th:href="@{/web/books/add}" class="btn btn-primary">新增</a></p>
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
@@ -23,6 +30,7 @@
                     <th>作者</th>
                     <th>描述</th>
                     <th>状态</th>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,19 +45,20 @@
                         first:第一条(返回boolean)
                         last:最后一条(返回boolean) -->
                 <tr th:each="book,iterStat:${bookList}" th:class="${iterStat.even}? 'bg-success'">
-                    <th th:text="${iterStat.count}">#</th>
+                    <td th:text="${iterStat.count}">#</td>
                     <!-- 点击书名查看详情页 url
                         两种方式-->
                     <!--<th th:text="${book.name}">书名</th>-->
                     <!--<th><a href="#" th:text="${book.name}" th:href="@{/web/books/{id}(id=${book.id})}">书名</a></th>-->
-                    <th><a href="#" th:text="${book.name}" th:href="@{'/web/books/'+${book.id}}">书名</a></th>
-                    <th th:text="${book.author}">作者</th>
-                    <th th:text="${book.description}">描述</th>
-                    <th th:switch="${book.status}">
+                    <td><a href="#" th:text="${book.name}" th:href="@{'/web/books/'+${book.id}}">书名</a></td>
+                    <td th:text="${book.author}">作者</td>
+                    <td th:text="${book.description}">描述</td>
+                    <td th:switch="${book.status}">
                         <span th:case="0">未读</span>
                         <span th:case="1">在读</span>
                         <span th:case="2">已读</span>
-                    </th>
+                    </td>
+                    <td><a href="#" th:href="@{'/web/books/'+${book.id}+'/edit'}">更新</a></td>
                 </tr>
             </tbody>
         </table>
