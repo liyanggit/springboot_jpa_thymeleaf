@@ -4,6 +4,10 @@ import com.lyng.study.domain.Book;
 import com.lyng.study.domain.BookVo;
 import com.lyng.study.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -159,6 +163,21 @@ public class StarterController {
     public Object getBookDetail(@PathVariable("id") long bid){
         //return bid+"book detail";
         return bookService.findOne(bid);
+    }
+
+    /**
+     * 获取全部书单(分页)
+     *  参数:page默认0(代表第一页),size默认3
+     * @return
+     */
+    @GetMapping("/booksByPage")
+    //public Page<Book> getBooksByPage(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "3") int size) {
+    public Page<Book> getBooksByPage(@PageableDefault(size = 3,
+            direction = Sort.Direction.DESC,sort = {"id"}) Pageable pageable) {
+        //Sort sort = new Sort(Sort.Direction.DESC,"id");
+        //Pageable pageable = new PageRequest(page,size,sort);
+
+        return bookService.getBooksByPage(pageable);
     }
 
     /**

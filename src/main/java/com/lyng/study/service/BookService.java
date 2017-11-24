@@ -4,6 +4,8 @@ import com.lyng.study.domain.Book;
 import com.lyng.study.domain.BookRepository;
 import com.lyng.study.domain.BookVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,6 +61,23 @@ public class BookService {
      */
     public void removeBook(long id){
         bookRepository.delete(id);
+    }
+
+    /**
+     * 分页查询
+     */
+    public Page<Book> getBooksByPage(Pageable pageable){
+        /**
+         * 参数:
+         * page:页码
+         * size:大小
+         * sort(可选,排序用)
+         *      参数:1-排序规则
+         *          2-排序字段
+         */
+        //Sort sort = new Sort(Sort.Direction.DESC,"id");
+        //Pageable pageable = new PageRequest(1,5,sort);
+        return bookRepository.findAll(pageable);
     }
 
     /**

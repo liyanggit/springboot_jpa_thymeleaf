@@ -1,5 +1,7 @@
 package com.lyng.study.domain;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +20,14 @@ import java.util.Map;
  */
 @Repository
 public interface BookRepository extends JpaRepository<Book,Long>{
+
+    /**
+     * jpa-基于命名规则的分页查询
+     * @param pageable
+     * @return
+     */
+    @Override
+    Page<Book> findAll(Pageable pageable);
 
     /**
      * 基于jpa命名规则的复杂查询
@@ -264,7 +274,5 @@ public interface BookRepository extends JpaRepository<Book,Long>{
     @Modifying
     @Query(value = "delete from book where id = ?1",nativeQuery = true)
     int removeBookHandler(long id);
-
-
 
 }

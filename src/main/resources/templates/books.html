@@ -43,8 +43,10 @@
                         even:偶数(返回boolean)
                         odd:奇数(返回boolean)
                         first:第一条(返回boolean)
-                        last:最后一条(返回boolean) -->
-                <tr th:each="book,iterStat:${bookList}" th:class="${iterStat.even}? 'bg-success'">
+                        last:最后一条(返回boolean)
+
+                        分页之后替换为pages.content-->
+                <tr th:each="book,iterStat:${pages.content}" th:class="${iterStat.even}? 'bg-success'">
                     <td th:text="${iterStat.count}">#</td>
                     <!-- 点击书名查看详情页 url
                         两种方式-->
@@ -63,6 +65,16 @@
                 </tr>
             </tbody>
         </table>
+        <nav>
+            <ul class="pager">
+                <!-- 两种替换href的方式
+                    th:unless="${pages.first}"---如果显示的是第一页的内容,则不显示上一页的页签
+                    th:unless="${pages.last}"---如果显示的是最后一页的内容,则不显示下一页的页签
+                 -->
+                <li class="previous"><a href="#" th:href="@{'/web/books?page='+${pages.number-1}}" th:unless="${pages.first}">上一页</a></li>
+                <li class="next"><a href="#" th:href="@{/web/books(page=${pages.number+1})}" th:unless="${pages.last}">下一页</a></li>
+            </ul>
+        </nav>
 
     </div>
 
